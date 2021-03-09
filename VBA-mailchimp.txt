@@ -1,0 +1,102 @@
+Sub Golf_routine()
+'
+' Hanazono Golf Macro
+'
+' Keyboard Shortcut: Ctrl+Shift+W
+' Codes below will arrange the dat from Hanazono Golf and arrange them as needed for MailChimp import
+    Columns("E:E").Cut
+    Columns("A:A").Insert Shift:=xlToRight ' this one for the email address
+    Columns("G:G").Cut
+    Columns("B:B").Insert Shift:=xlToRight ' for Ž –¼
+    Columns("L:O").Cut
+    Columns("C:C").Insert Shift:=xlToRight ' for address
+    Columns("I:I").Cut
+    Columns("H:H").Insert Shift:=xlToRight ' for membership
+    Columns("P:P").Cut
+    Columns("J:J").Insert Shift:=xlToRight ' for birthday
+    Columns("M:M").Cut
+    Columns("K:K").Insert Shift:=xlToRight ' for kana
+    Columns("N:O").Cut
+    Columns("M:M").Insert Shift:=xlToRight ' for phones
+    Columns("Q:Q").Cut
+    Columns("O:O").Insert Shift:=xlToRight ' for sex
+    Columns("U:X").Cut
+    Columns("P:P").Insert Shift:=xlToRight ' for sex
+    Columns("X:X").Cut
+    Columns("T:T").Insert Shift:=xlToRight ' for mobile preference
+    Columns("I:I").Cut
+    Columns("V:V").Insert Shift:=xlToRight ' for log in id
+    Exit Sub
+    
+    ' formatting address
+Range("Y1") = "=CONCATENATE(F1, ""  "", E1, ""  "", D1, ""  "", C1, ""  "", V1, ""  "", ""JP"")"
+ Dim LastRow As String
+    LastRow = ActiveSheet.Range("G1", Range("G1").End(xlDown)).Rows.Count
+    Range("Y1").Select
+    Selection.AutoFill Destination:=Range("Y1", Range("Y" & LastRow))
+    Range("Y2", Range("Y" & LastRow)).Select
+    Selection.Copy
+    Range("D2").Select
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+' formatting names
+Range("Z1") = "=LEFT(B1, FIND("" "", B1)-1)"
+Range("AA1") = "=RIGHT(B1, FIND("" "", B1)-1)"
+        Range("AA1").Select
+    Selection.AutoFill Destination:=Range("AA1", Range("AA" & LastRow))
+    Range("AA2", Range("AA" & LastRow)).Select
+    Selection.Copy
+    Range("C2").Select
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+        
+    Range("Z1").Select
+    Selection.AutoFill Destination:=Range("Z1", Range("Z" & LastRow))
+    Range("Z2", Range("Z" & LastRow)).Select
+    Selection.Copy
+    Range("B2").Select
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+        
+        Columns("E:F").Delete
+        Columns("W:Y").Delete
+        
+Range("A1") = "EMAIL"
+Range("B1") = "FNAME"
+Range("C1") = "LNAME"
+Range("D1") = "ADDRESS"
+Range("E1") = "ID"
+Range("F1") = "MEMBER"
+Range("G1") = "BIRTHDAY"
+Range("H1") = "KANA"
+Range("I1") = "MAIN_ADD"
+Range("J1") = "PHONENO"
+Range("K1") = "EMERG_PHON"
+Range("L1") = "GENDER"
+Range("M1") = "REGI_DATE"
+Range("N1") = "LLOGIN_DAT"
+Range("O1") = "LVISIT_DAT"
+Range("P1") = "FREQUENCY"
+Range("Q1") = "MOBILEEDM"
+Range("R1") = "MOBILEMAIL"
+Range("S1") = "LOGINID"
+    Exit Sub
+' All necessary columns are saved, now let's adjust the name and the address format
+'Function Combined(name, affiliation, email)
+' Combined = Join(Array(name, "(" & affiliation & ")", "<" & email & ">"), " ")
+' Range("Y1") = "=CONCATENATE(F1,E1,D1,C1,V1)"
+
+    Range("A1") = "EMAIL"
+    Range("B1") = "First Name"
+    Range("C1") = "Last Name"
+    Range("D1") = ""
+    Range("G1") = "Preferred Language"
+    Range("H1") = "Birthday"
+    Range("I1") = "Gender"
+    Range("J1") = "TAGS"
+    Range("A1", Range("I" & LastRow)).Sort Key1:=Range("D1"), Order1:=xlDescending
+    Range("A1").Select
+    Dim r1 As Range
+
+'End Function
+End Sub
